@@ -72,67 +72,74 @@ const formattedTimer = computed(() => {
 });
 
 const apiData = ref(null);
+const apiLoading = ref(false);
+const showApiResults = ref(false);
 
-const callApi = () => {
-  loading.value = true;
-  
-  fetch('https://swapi.dev/api/people/1/')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('API data:', data);
-      apiData.value = data;
-      alert(`Character info: ${data.name}, born in ${data.birth_year}`);
-    })
-    .catch(err => {
-      console.error('Error fetching data:', err);
-    })
-    .finally(() => {
-      loading.value = false;
-    });
-};
+function handleApiData(data) {
+  apiData.value = data;
+  showApiResults.value = true;
+  isResultReady.value = false;
+  processResults.value = false;
+}
+
+function handleLoadingChange(isLoading) {
+  apiLoading.value = isLoading;
+}
 </script>
 
 <template>
   <div class="main-container">
-    <div v-if="!isResultReady" class="progress-container">
-      <div class="progress-bar" :style="progressStyle"></div>
-    </div>
-
-    <div v-if="!processResults && !isResultReady" class="test-container">
-      <span class="question">{{ currentStep.question }}</span>
-      <img v-if="currentStep.image" :src="currentStep.image" class="test-image" />
-      <Options
-        :options="currentStep.options"
-        :type="currentStep.type"
-        v-model="selectedOption"
-      />
-      <Button
-        :isActive="isNextButtonActive"
-        text="Далее"
-        @click="nextStep"
-      />
-    </div>
-
-    <div v-if="processResults" class="results-processing">
-      <LoadingAnimation />
-    </div>
-
-    <div v-if="isResultReady" class="result-container">
-      <h2>Ваш результат рассчитан:</h2>
-      <p class="result-text">
-        <span class="underline">Вы относитесь к 3%</span> респондентов, чей уровень интеллекта более чем на 15 пунктов отличается от среднего в большую или меньшую сторону!
-      </p>
-      <h3>Скорее получите свой результат!</h3>
-      <div class="blue-box">
-        <p>В целях защиты персональных данных результат теста, их подробная интерпретация и рекомендации доступны в виде голосового сообщения по звонку с вашего мобильного телефона.</p>
+    <div v-if="showApiResults" class="api-result-container">
+      <h2>Результаты звонка:</h2>
+      <div v-if="apiLoading" class="api-loading">
+        <LoadingAnimation title="Совершаем звонок" subtitle="Пожалуйста подождите..."/>
       </div>
-      <p class="timer-text">Звоните скорее, запись доступна всего <span class="timer"><br/>{{ formattedTimer }}</span> минут</p>
-      <Call/>
+      <div v-else class="api-data">
+        <div v-if="apiData">
+          <h3>{{ apiData.name }}</h3>
+          <p>Birth year: {{ apiData.birth_year }}</p>
+          <p>Sex: {{ apiData.gender }}</p>
+          <p>Height: {{ apiData.height }}</p>
+          <p>Weight: {{ apiData.mass }}</p>
+          <p>Eye color: {{ apiData.eye_color }}</p>
+          <p>Hair color: {{ apiData.eye_color }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="!showApiResults">
+      <div v-if="!isResultReady" class="progress-container">
+        <div class="progress-bar" :style="progressStyle"></div>
+      </div>
+      <div v-if="!processResults && !isResultReady" class="test-container">
+        <span class="question">{{ currentStep.question }}</span>
+        <img v-if="currentStep.image" :src="currentStep.image" class="test-image" />
+        <Options
+          :options="currentStep.options"
+          :type="currentStep.type"
+          v-model="selectedOption"
+        />
+        <Button
+          :isActive="isNextButtonActive"
+          text="Далее"
+          @click="nextStep"
+        />
+      </div>
+      <div v-if="processResults" class="results-processing">
+        <LoadingAnimation />
+      </div>
+      <div v-if="isResultReady" class="result-container">
+        <h2>Ваш результат рассчитан:</h2>
+        <p class="result-text">
+          <span class="underline">Вы относитесь к 3%</span> респондентов, чей уровень интеллекта более чем на 15 пунктов отличается от среднего в большую или меньшую сторону!
+        </p>
+        <h3>Скорее получите свой результат!</h3>
+        <div class="blue-box">
+          <p>В целях защиты персональных данных результат теста, их подробная интерпретация и рекомендации доступны в виде голосового сообщения по звонку с вашего мобильного телефона.</p>
+        </div>
+        <p class="timer-text">Звоните скорее, запись доступна всего <span class="timer"><br/>{{ formattedTimer }}</span> минут</p>
+        <Call @data-received="handleApiData" @loading-change="handleLoadingChange" />
+      </div>
     </div>
   </div>
 </template>
@@ -226,5 +233,11 @@ h3 {
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
 }
+
+.api-result-container {
+  text-align: center;
+  padding: 1rem;
+}
+
 </style>
 

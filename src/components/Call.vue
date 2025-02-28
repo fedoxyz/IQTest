@@ -1,13 +1,15 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, defineEmits } from 'vue';
 import call from "../assets/call.png"
 
 const loading = ref(false);
 const apiData = ref(null);
 const error = ref(null);
 
+const emit = defineEmits(['data-received', 'loading-change']);
 const callApi = () => {
   loading.value = true;
+  emit('loading-change', true);
   
   fetch('https://swapi.dev/api/people/1/')
     .then(response => {
@@ -17,17 +19,17 @@ const callApi = () => {
       return response.json();
     })
     .then(data => {
-      console.log('Star Wars API data:', data);
+      console.log('API data:', data);
       apiData.value = data;
+      emit('data-received', data);
     })
     .catch(err => {
       console.error('Error fetching data:', err);
       error.value = 'Failed to fetch';
-      alert('Error: ' + error.value);
+      emit('data-received', { error: error.value });
     })
-    .finally(() => {
-      loading.value = false;
-    });
+  
+  emit('loading-change', false);
 };
 </script>
 
