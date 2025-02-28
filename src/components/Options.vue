@@ -26,14 +26,12 @@ const isSelected = (option) => props.modelValue === option;
 <template>
   <div :class="['options', { 'color-options': type === 'color' }]">
     <div v-for="option in options" :key="option" class="option-item">
-      <!-- Numbers -->
       <div v-if="type === 'numbers'" 
            :class="['number-option', { 'selected': isSelected(option) }]"
            @click="selectOption(option)">
         {{ option }}
       </div>
 
-      <!-- Text -->
       <div v-else-if="type === 'text'" 
            :class="['text-option', { 'selected': isSelected(option) }]"
            @click="selectOption(option)">
@@ -41,7 +39,6 @@ const isSelected = (option) => props.modelValue === option;
         {{ option }}
       </div>
 
-      <!-- Color -->
       <div v-else-if="type === 'color'" 
            :class="['color-option', { 'selected': isSelected(option) }]"
            :style="{ backgroundColor: option }"
@@ -55,8 +52,11 @@ const isSelected = (option) => props.modelValue === option;
 .options {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  flex-direction: column; /* Default to column layout for text */
+  gap: 15px;
+  flex-direction: column; 
+  margin-bottom: 1.6rem;
+  margin-top: 1.6rem;
+  justify-content: center;
 }
 
 .options.color-options,
@@ -89,6 +89,7 @@ const isSelected = (option) => props.modelValue === option;
   background-color: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
+  text-align: left;
 }
 
 .text-option .checkmark {
@@ -112,27 +113,25 @@ const isSelected = (option) => props.modelValue === option;
 
 .color-options .option-item {
   flex: 0 0 auto;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  padding-right: 8px;
+  padding-left: 8px;
 }
 
 .color-option {
   width: 75px;
   height: 75px;
-  display: block; /* Ensure it's a block-level element */
+  display: block; 
 }
 
 .color-option.selected {
   border: 3px solid #fec701;
-  box-sizing: border-box; /* Ensure border doesn't increase size */
+  box-sizing: border-box; 
 }
 
-/* Ensure every third item doesn't have right margin */
 .color-options .option-item:nth-child(3n) {
   margin-right: 0;
 }
 
-/* Clear float every third item to ensure proper wrapping */
 .color-options .option-item:nth-child(3n + 1) {
   clear: left;
 }

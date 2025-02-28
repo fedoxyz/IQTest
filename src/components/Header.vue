@@ -17,7 +17,6 @@ const toggleMenu = () => {
 <template>
   <header class="header">
     <div class="container">
-      <!-- Hamburger button on the left side -->
       <button class="hamburger" @click="toggleMenu" aria-label="Menu">
         <span></span>
         <span></span>
@@ -29,13 +28,12 @@ const toggleMenu = () => {
         <span v-if="title" class="title">{{ title }}</span>
       </div>
       
-      <!-- Navigation menu -->
       <nav class="nav" :class="{ active: isMenuOpen }">
         <div class="close-btn" @click="toggleMenu">×</div>
         <ul class="nav-list">
-          <li><a href="#" class="nav-link">Главная</a></li>
+          <li><a href="/" class="nav-link">Главная</a></li>
           <li><a href="#" class="nav-link">Информация о тесте</a></li>
-          <li><a href="#" class="nav-link highlight">Пройти тест</a></li>
+          <li><a href="/test" class="nav-link highlight">Пройти тест</a></li>
         </ul>
       </nav>
     </div>
@@ -65,12 +63,16 @@ const toggleMenu = () => {
   height: 49px;
 }
 
+nav {
+    margin: 0.8rem 0 0.8rem auto;
+}
+
 .nav-list {
   display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 1rem;
+  gap: 1.8rem;
 }
 
 .nav-link {
@@ -165,7 +167,6 @@ const toggleMenu = () => {
     background-color: #191918;
     z-index: 100;
     transition: left 0.3s ease;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
   
   .nav.active {

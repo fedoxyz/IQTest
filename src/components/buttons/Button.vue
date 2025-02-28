@@ -34,8 +34,7 @@ const handleClick = () => {
     height: 41px;
     font-size: 14px;
     font-weight: 600;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    transition: all 0.6s ease;
     border: none;
     outline: none;
     position: relative;
@@ -43,6 +42,7 @@ const handleClick = () => {
 
   .button.inactive {
     cursor: not-allowed;
+    box-shadow: inset 0 8px 10px rgb(0 0 0 / 100%);
   }
 
   .button.inactive::after {

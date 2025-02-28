@@ -1,3 +1,7 @@
+import figures from "../assets/test/figures.png"
+import star from "../assets/test/star.png"
+import geoFigure from "../assets/test/geo-figure.png"
+
 export const testSteps = [
   {
     question: "Ваш пол:",
@@ -38,7 +42,7 @@ export const testSteps = [
     question: "Выберите правильную фигуру из четырёх пронумерованных.",
     options: [1, 2, 3, 4],
     type: "numbers",
-    image: ""
+    image: figures
   },
   {
     question: "Вам привычнее и важнее:",
@@ -49,13 +53,13 @@ export const testSteps = [
     question: "Какое определение, по-Вашему, больше подходит к этому геометрическому изображению:",
     options: ["Оно остроконечное", "Оно устойчиво", "Оно находится в состоянии равновесия"],
     type: "text",
-    image: ""
+    image: geoFigure
   },
   {
     question: "Вставьте подходящее число",
     options: [34, 36, 53, 44, 66, 42],
     type: "numbers",
-    image: ""
+    image: star
   },
 ];
 
