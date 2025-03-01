@@ -7,7 +7,7 @@ import LoadingAnimation from './LoadingAnimation.vue';
 import Call from './Call.vue';
 import background from "../assets/cover_bg.jpeg";
 
-const emit = defineEmits(['test-completed']);
+const emit = defineEmits(['result-ready', 'test-completed']);
 
 const currentStepIndex = ref(0);
 const totalSteps = testSteps.length;
@@ -33,6 +33,7 @@ const nextStep = () => {
 
 const processResults = ref(false);
 const isResultReady = ref(false);
+
 
 watch(isResultReady, (newValue) => {
   emit('result-ready', newValue);
