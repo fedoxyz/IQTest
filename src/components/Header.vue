@@ -42,9 +42,11 @@ const toggleMenu = () => {
 
 <style scoped>
 .header {
+  position: fixed;
   background-color: #191918;
   width: 100%;
   margin: 0;
+  z-index: 50;
   padding: 0.5rem 0;
 }
 

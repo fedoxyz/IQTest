@@ -1,50 +1,73 @@
 <script setup>
-import { ref } from 'vue'
-
+import { ref, computed } from 'vue'
 const props = defineProps({
   text: String,
-  isActive: Boolean
+  isActive: Boolean,
+  style: {
+    type: String,
+    default: 'default'
+  },
+  href: {
+    type: String,
+    default: ''
+  }
 })
-
 const emit = defineEmits(['click'])
-
-const handleClick = () => {
+const handleClick = (event) => {
   if (props.isActive) {
     emit('click')
+    // If there's no href, prevent default behavior
+    if (!props.href) {
+      event.preventDefault()
+    }
+  } else {
+    // Prevent navigation if inactive
+    event.preventDefault()
   }
 }
-</script>
 
+// Determine if we should render a button or an anchor
+const isLink = computed(() => !!props.href)
+</script>
 <template>
-  <button 
-    :class="{ 'button': true, 'active': isActive, 'inactive': !isActive }" 
+  <component
+    :is="isLink ? 'a' : 'button'"
+    :href="isLink ? href : undefined"
+    :class="{ 
+      'button': true, 
+      'active': isActive, 
+      'inactive': !isActive,
+      'transparent': style === 'transparent'
+    }" 
     @click="handleClick"
   >
     {{ text }}
-  </button>
+  </component>
 </template>
-
 <style scoped>
   .button {
-    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
     font-family: Merriweather, serif;
     text-transform: uppercase;
     background-color: #DADADA;
-    width: 189px;
-    height: 41px;
-    font-size: 14px;
+    width: 204px;
+    height: 47px;
+    font-size: 18px;
     font-weight: 600;
     transition: all 0.6s ease;
     border: none;
     outline: none;
     position: relative;
+    text-decoration: none;
   }
-
   .button.inactive {
     cursor: not-allowed;
     box-shadow: inset 0 8px 10px rgb(0 0 0 / 100%);
+    color: #3c3c3c;
   }
-
   .button.inactive::after {
     content: '';
     position: absolute;
@@ -55,19 +78,40 @@ const handleClick = () => {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
   }
-
   .button.active {
     background-color: #fec701;
     color: black;
     cursor: pointer;
   }
-
   .button.active:hover {
     background-color: #ffd84c;
   }
-
   .button.active:active {
     background-color: #e0b001;
   }
+  
+  /* Transparent style */
+  .button.transparent {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+  }
+  .button.transparent.active {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+  }
+  .button.transparent.active:hover {
+    background-color: #e0b001;
+    border-color: #e0b001;
+    color: black;
+  }
+  .button.transparent.inactive {
+    border: 2px solid #DADADA;
+    color: #DADADA;
+    box-shadow: none;
+  }
+  .button.transparent.inactive::after {
+    background-color: transparent;
+  }
 </style>
-

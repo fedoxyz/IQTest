@@ -107,7 +107,7 @@ function handleLoadingChange(isLoading) {
       </div>
     </div>
 
-    <div v-if="!showApiResults">
+    <div style="display: flex; flex-direction: column;" v-if="!showApiResults">
       <div v-if="!isResultReady" class="progress-container">
         <div class="progress-bar" :style="progressStyle"></div>
       </div>
@@ -176,6 +176,8 @@ h3 {
   border-radius: 10.5px;
   overflow: hidden;
   place-self: center;
+  margin: 0;
+
 }
 
 .progress-bar {
@@ -232,6 +234,8 @@ h3 {
 .main-container {
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .api-result-container {

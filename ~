@@ -1,0 +1,28 @@
+<script setup>
+import { ref, defineEmits } from 'vue';
+import arrowUp from "../assets/arrow-up.png";
+import Button from './buttons/Button.vue';
+import background from '../assets/m_main_bg1.png'
+</script>
+
+<template>
+  <div class="cover-container">
+  <h2>Пройдите точный и быстрый</h2>
+  <h1>Тест на определение IQ</h1>
+  <Button href="/test" text="Пройти тест" :isActive="true"/>
+  <div class="cover-text">И получите рекомендации по развитию своего интеллекта и улучшению финансового благосостояния и личной жизни</div>
+  <div class="more"><img :src="arrowUp">Подробнее</div>
+  </div>
+</template>
+
+<style scoped>
+  h1 {
+    font-family: 'Yeseva One';
+    color: #f4cf0d;
+    font-size: 32px;
+  }
+  .cover-container {
+    background-image: background;
+  }
+</style>
+

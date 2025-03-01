@@ -36,7 +36,7 @@ const callApi = () => {
 <template>
   <button class="phone-button" @click="callApi" :disabled="loading">
     <img v-if="!loading" :src="call" class="phone-icon">
-    {{ loading ? 'Loading...' : 'Позвонить и прослушать результат' }}
+    {{ loading ? 'Вызываем...' : 'Позвонить и прослушать результат' }}
   </button>
 </template>
 
