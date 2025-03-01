@@ -1,9 +1,23 @@
 <script setup>
-import { ref, defineEmits } from 'vue';
+import { ref, defineEmits, onMounted} from 'vue';
 import arrowUp from "../assets/arrow-up.svg";
 import Button from './buttons/Button.vue';
 import background from '../assets/cover_bg.jpeg'
 import logo from "../assets/logo.png"
+
+const nextSection = ref(null);
+const headerHeight = 60; 
+
+onMounted(() => {
+  nextSection.value = document.querySelector(".cover-container").nextElementSibling;
+});
+
+const scrollToNext = () => {
+  if (nextSection.value) {
+    const offsetTop = nextSection.value.getBoundingClientRect().top + window.scrollY - headerHeight;
+    window.scrollTo({ top: offsetTop, behavior: "smooth" });
+  }
+};
 </script>
 
 <template>
@@ -26,7 +40,7 @@ import logo from "../assets/logo.png"
         <span>благосостояния и личной жизни</span>
       </div>
     </div>
-    <div class="more"><img :src="arrowUp">Подробнее</div>
+    <div class="more" @click="scrollToNext"><img :src="arrowUp">Подробнее</div>
   </div>
 </template>
 

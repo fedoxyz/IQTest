@@ -176,6 +176,7 @@ nav {
   }
   
   .close-btn {
+    width: auto;
     display: block;
   }
   

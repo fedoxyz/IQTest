@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import Button from './buttons/Button.vue';
 import Options from './Options.vue';
 import { testSteps } from '../configs/testConfig.js';
@@ -32,6 +32,10 @@ const nextStep = () => {
 
 const processResults = ref(false);
 const isResultReady = ref(false);
+
+watch(isResultReady, (newValue) => {
+  emit('result-ready', newValue);
+});
 
 const completeTest = () => {
   processResults.value = true;
@@ -89,11 +93,10 @@ function handleLoadingChange(isLoading) {
 
 <template>
   <div class="main-container">
-      <div v-if="!isResultReady" class="progress-container">
+      <div v-if="!isResultReady && !showApiResults" class="progress-container">
         <div class="progress-bar" :style="progressStyle"></div>
       </div>
     <div v-if="showApiResults" class="api-result-container">
-      <h2>Результаты звонка:</h2>
       <div v-if="apiLoading" class="api-loading">
         <LoadingAnimation title="Совершаем звонок" subtitle="Пожалуйста подождите..."/>
       </div>
@@ -110,9 +113,9 @@ function handleLoadingChange(isLoading) {
       </div>
     </div>
 
-    <div style="margin-top: 70px; margin-bottom: auto; display: flex; flex-direction: column;" v-if="!showApiResults">
+    <div style="margin-top: auto; margin-bottom: auto; display: flex; flex-direction: column;" v-if="!showApiResults">
       <div v-if="!processResults && !isResultReady" class="test-container">
-        <span class="question">{{ currentStep.question }}</span>
+        <span class="question">{{currentStep.question}}</span>
         <img v-if="currentStep.image" :src="currentStep.image" class="test-image" />
         <Options
           :options="currentStep.options"
@@ -136,7 +139,7 @@ function handleLoadingChange(isLoading) {
         <Call @data-received="handleApiData" @loading-change="handleLoadingChange" />
       </div>
     </div>
-    <div v-if="!processResults && !isResultReady" style="margin: 0 0 -90px 0px;">
+    <div v-if="!processResults && !isResultReady && !showApiResults" style="margin: 0 0 -90px 0px;">
         <Button
           :isActive="isNextButtonActive"
           text="Далее"
@@ -148,8 +151,10 @@ function handleLoadingChange(isLoading) {
 
 <style scoped>
 .question {
+  white-space: pre-line;
   font-family: "PT Serif";
   font-size: 22px;
+  margin: 0px 10px;
 }
 
 h2 {
@@ -200,6 +205,7 @@ h3 {
   text-align: center;
   display: flex;
   flex-direction: column;
+  margin-top: 55px;
 }
 
 .blue-box {
@@ -245,6 +251,8 @@ h3 {
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .api-data {

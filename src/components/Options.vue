@@ -21,6 +21,23 @@ const selectOption = (option) => {
 };
 
 const isSelected = (option) => props.modelValue === option;
+
+const textOptionStyle = computed(() => {
+  const baseHeight = 10;
+  const maxHeight = 20; 
+  const dynamicHeight = Math.min(baseHeight - (0.7 * props.options.length), maxHeight);
+  
+  return {
+    padding: `${dynamicHeight}px 20px`,
+    fontFamily: '"PT Serif"',
+    fontSize: '20px',
+    display: 'flex',
+    alignItems: 'center',
+    textAlign: 'left',
+    fontWeight: '200'
+  };
+});
+
 </script>
 
 <template>
@@ -34,6 +51,7 @@ const isSelected = (option) => props.modelValue === option;
 
       <div v-else-if="type === 'text'" 
            :class="['text-option', { 'selected': isSelected(option) }]"
+           :style="textOptionStyle"
            @click="selectOption(option)">
         <span class="checkmark"></span>
         <div class="option-text">{{ option }}</div>
@@ -97,6 +115,7 @@ const isSelected = (option) => props.modelValue === option;
   align-items: center;
   text-align: left;
   font-weight: 200;
+  white-space: pre-line;
 }
 
 .text-option .checkmark {
