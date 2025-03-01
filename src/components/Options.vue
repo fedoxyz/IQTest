@@ -36,7 +36,7 @@ const isSelected = (option) => props.modelValue === option;
            :class="['text-option', { 'selected': isSelected(option) }]"
            @click="selectOption(option)">
         <span class="checkmark"></span>
-        {{ option }}
+        <div class="option-text">{{ option }}</div>
       </div>
 
       <div v-else-if="type === 'color'" 
@@ -52,7 +52,7 @@ const isSelected = (option) => props.modelValue === option;
 .options {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 1.5rem;
   flex-direction: column; 
   margin-bottom: 1.6rem;
   margin-top: 1.6rem;
@@ -66,6 +66,10 @@ const isSelected = (option) => props.modelValue === option;
 
 .option-item {
   cursor: pointer;
+}
+
+.option-text {
+  margin-left: 20px;
 }
 
 .number-option {
@@ -85,11 +89,14 @@ const isSelected = (option) => props.modelValue === option;
 }
 
 .text-option {
-  padding: 10px;
+  font-family: "PT Serif";
+  font-size: 20px;
+  padding: 10px 20px;
   background-color: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   text-align: left;
+  font-weight: 200;
 }
 
 .text-option .checkmark {
@@ -97,8 +104,10 @@ const isSelected = (option) => props.modelValue === option;
   height: 20px;
   border-radius: 50%;
   border: 1px solid white;
-  margin-right: 10px;
   display: inline-block;
+  flex-shrink: 0; /* Prevent the checkmark from shrinking */
+  min-width: 20px; /* Ensure consistency of width */
+  min-height: 20px; /* Ensure consistency of height */
 }
 
 .text-option.selected {
@@ -113,13 +122,11 @@ const isSelected = (option) => props.modelValue === option;
 
 .color-options .option-item {
   flex: 0 0 auto;
-  padding-right: 8px;
-  padding-left: 8px;
 }
 
 .color-option {
-  width: 75px;
-  height: 75px;
+  width: 86px;
+  height: 86px;
   display: block; 
 }
 

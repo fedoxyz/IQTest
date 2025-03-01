@@ -7,9 +7,11 @@ import MainInfo2 from '../components/MainInfo2.vue';
 </script>
 
 <template>
+  <div class="my-name">
   <Header/>
   <MainCover/>
   <MainQuote/>
   <MainInfo1/>
   <MainInfo2/>
+  </div>
 </template>

@@ -13,7 +13,7 @@ const onTestCompleted = () => {
 
 <template>
   <Header :title="headerTitle" :logo="logo"/>
-  <div>
+  <div class="your-name">
     <TestComponent @test-completed="onTestCompleted"/>
   </div>
 </template>

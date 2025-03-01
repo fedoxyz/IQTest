@@ -89,6 +89,9 @@ function handleLoadingChange(isLoading) {
 
 <template>
   <div class="main-container">
+      <div v-if="!isResultReady" class="progress-container">
+        <div class="progress-bar" :style="progressStyle"></div>
+      </div>
     <div v-if="showApiResults" class="api-result-container">
       <h2>Результаты звонка:</h2>
       <div v-if="apiLoading" class="api-loading">
@@ -107,10 +110,7 @@ function handleLoadingChange(isLoading) {
       </div>
     </div>
 
-    <div style="display: flex; flex-direction: column;" v-if="!showApiResults">
-      <div v-if="!isResultReady" class="progress-container">
-        <div class="progress-bar" :style="progressStyle"></div>
-      </div>
+    <div style="margin-top: 70px; margin-bottom: auto; display: flex; flex-direction: column;" v-if="!showApiResults">
       <div v-if="!processResults && !isResultReady" class="test-container">
         <span class="question">{{ currentStep.question }}</span>
         <img v-if="currentStep.image" :src="currentStep.image" class="test-image" />
@@ -118,11 +118,6 @@ function handleLoadingChange(isLoading) {
           :options="currentStep.options"
           :type="currentStep.type"
           v-model="selectedOption"
-        />
-        <Button
-          :isActive="isNextButtonActive"
-          text="Далее"
-          @click="nextStep"
         />
       </div>
       <div v-if="processResults" class="results-processing">
@@ -141,12 +136,20 @@ function handleLoadingChange(isLoading) {
         <Call @data-received="handleApiData" @loading-change="handleLoadingChange" />
       </div>
     </div>
+    <div v-if="!processResults && !isResultReady" style="margin: 0 0 -90px 0px;">
+        <Button
+          :isActive="isNextButtonActive"
+          text="Далее"
+          @click="nextStep"
+        />
+    </div>
   </div>
 </template>
 
 <style scoped>
 .question {
-  font-size: 20px;
+  font-family: "PT Serif";
+  font-size: 22px;
 }
 
 h2 {
@@ -171,12 +174,12 @@ h3 {
 
 .progress-container {
   width: 85%;
-  height: 10px;
+  min-height: 10px;
   background-color: #e0e0e0a1;
   border-radius: 10.5px;
   overflow: hidden;
   place-self: center;
-  margin: 0;
+  margin-top: 68px;
 
 }
 
@@ -190,10 +193,6 @@ h3 {
 .test-container {
   text-align: center;
   margin-top: 15px;
-  padding: 10px;
-}
-
-.results-processing {
 }
 
 .result-container {
@@ -228,19 +227,29 @@ h3 {
 }
 
 .result-text {
+  font-size: 18px;
   margin: 10px 10px 10px 10px;
 }
 
 .main-container {
+  height: 80vh;
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
 }
 
 .api-result-container {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
   padding: 1rem;
+}
+
+.api-data {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 </style>

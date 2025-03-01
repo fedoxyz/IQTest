@@ -56,8 +56,8 @@ const callApi = () => {
   align-self: center;
   margin-right: 1.1rem;
   margin-left: 1.1rem;
-  width: 340px;
-  height: 110px;
+  width: 331px;
+  height: 85px;
   justify-content: center;
 }
 

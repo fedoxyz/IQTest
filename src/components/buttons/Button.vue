@@ -53,8 +53,8 @@ const isLink = computed(() => !!props.href)
     font-family: Merriweather, serif;
     text-transform: uppercase;
     background-color: #DADADA;
-    width: 204px;
-    height: 47px;
+    width: 220px;
+    height: 50px;
     font-size: 18px;
     font-weight: 600;
     transition: all 0.6s ease;
@@ -93,12 +93,12 @@ const isLink = computed(() => !!props.href)
   /* Transparent style */
   .button.transparent {
     background-color: transparent;
-    border: 2px solid white;
+    border: 1px solid white;
     color: white;
   }
   .button.transparent.active {
     background-color: transparent;
-    border: 2px solid white;
+    border: 1px solid white;
     color: white;
   }
   .button.transparent.active:hover {
