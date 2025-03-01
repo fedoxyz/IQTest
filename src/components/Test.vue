@@ -5,6 +5,7 @@ import Options from './Options.vue';
 import { testSteps } from '../configs/testConfig.js';
 import LoadingAnimation from './LoadingAnimation.vue';
 import Call from './Call.vue';
+import background from "../assets/cover_bg.jpeg";
 
 const emit = defineEmits(['test-completed']);
 
@@ -92,6 +93,7 @@ function handleLoadingChange(isLoading) {
 </script>
 
 <template>
+  <div class="background" v-bind:style="{ backgroundImage: 'url(' + background + ')' }"></div>
   <div class="main-container">
       <div v-if="!isResultReady && !showApiResults" class="progress-container">
         <div class="progress-bar" :style="progressStyle"></div>
@@ -238,6 +240,7 @@ h3 {
 }
 
 .main-container {
+  position: relative;
   height: 80vh;
   padding-top: 1.2rem;
   padding-bottom: 1.2rem;
@@ -260,5 +263,16 @@ h3 {
   margin-bottom: auto;
 }
 
+.background {
+  height: 100vh; 
+  width: 100%;
+  position: fixed; 
+  top: 0;
+  left: 0;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.5);
+}
 </style>
 

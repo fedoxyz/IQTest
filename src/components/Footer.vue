@@ -17,7 +17,7 @@ onMounted(() => {
     if (footer.value) {
       const computedStyle = getComputedStyle(footer.value);
       const lineHeight = parseFloat(computedStyle.lineHeight);
-      const visibleLines = 1.5;
+      const visibleLines = 1.6;
 
       // Get the height of the content and calculate the offset
       const fullHeight = footer.value.scrollHeight;
@@ -42,9 +42,9 @@ onMounted(() => {
   width: 100%;
   position: absolute;
   color: #ffffff9e;
-  font-size: 10px;
+  font-size: 9px;
   line-height: 1.6;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-align: center;
   transition: bottom 0.3s ease-in-out;
   overflow: hidden;

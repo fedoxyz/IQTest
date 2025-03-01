@@ -110,7 +110,7 @@ const textOptionStyle = computed(() => {
   font-family: "PT Serif";
   font-size: 20px;
   padding: 10px 20px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgb(164 164 164 / 27%);
   display: flex;
   align-items: center;
   text-align: left;
