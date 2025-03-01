@@ -8,7 +8,6 @@ const props = defineProps({
   title: String
 })
 
-
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
@@ -32,7 +31,7 @@ const toggleMenu = () => {
         <div class="close-btn" @click="toggleMenu">×</div>
         <ul class="nav-list">
           <li><a href="/" class="nav-link">Главная</a></li>
-          <li><a href="#" class="nav-link">Информация о тесте</a></li>
+          <li><a href="/" class="nav-link">Информация о тесте</a></li>
           <li><a href="/test" class="nav-link highlight">Пройти тест</a></li>
         </ul>
       </nav>
