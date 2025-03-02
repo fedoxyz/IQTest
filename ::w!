@@ -259,29 +259,33 @@ h3 {
   margin-bottom: auto;
 }
 
+.star-wars-intro {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  font-size: 50px;
+  color: yellow;
+  transform: perspective(800px) rotateX(20deg) skewY(-15deg);
+  animation: moveUp 10s infinite linear;
+}
+
 
 .api-data {
   text-align: center;
-  font-family: 'News Cycle', sans-serif;
+  font-family: 'Arial', sans-serif;
   font-size: 50px;
   color: yellow;
-  transform: perspective(800px) rotateX(20deg) skewY(0deg);
+  transform: perspective(800px) rotateX(20deg) skewY(-15deg);
   animation: moveUp 10s infinite linear;
   margin-top: auto;
   margin-bottom: auto;
 }
 
-.api-data p {
-  margin-top: 0px;
-  margin-bottom: 0px;
-}
-
 @keyframes moveUp {
   0% {
-    transform: perspective(800px) rotateX(54deg) skewY(0deg) translateY(0);
+    transform: perspective(800px) rotateX(20deg) skewY(-15deg) translateY(0);
   }
   100% {
-    transform: perspective(800px) rotateX(20deg) skewY(0deg) translateY(-100vh);
+    transform: perspective(800px) rotateX(20deg) skewY(-15deg) translateY(-100vh);
   }
 }
 
